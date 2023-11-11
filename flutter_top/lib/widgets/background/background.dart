@@ -169,36 +169,36 @@ class Background extends HookConsumerWidget {
           //   ),
           // ),
 
-          // Positioned(
-          //   top: 432,
-          //   left: 1370,
-          //   child: Consumer(
-          //     builder: (context, ref, child) {
-          //       final time = ref.watch(timeProvider);
-          //       return time
-          //               .whenData(
-          //                 (time) => Text(
-          //                   DateFormat('HH:mm').format(time),
-          //                   style: TextStyle(
-          //                     fontSize: 100,
-          //                     fontWeight: FontWeight.bold,
-          //                     color: Colors.white,
-          //                     decoration: TextDecoration.none,
-          //                     shadows: <Shadow>[
-          //                       Shadow(
-          //                         offset: Offset(5.0, 5.0),
-          //                         blurRadius: 10.0,
-          //                         color: Color.fromARGB(255, 0, 0, 0),
-          //                       ),
-          //                     ],
-          //                   ),
-          //                 ),
-          //               )
-          //               .value ??
-          //           const SizedBox();
-          //     },
-          //   ),
-          // ),
+          Positioned(
+            top: 432,
+            left: 1370,
+            child: Consumer(
+              builder: (context, ref, child) {
+                final time = ref.watch(timeProvider);
+                return time
+                        .whenData(
+                          (time) => Text(
+                            DateFormat('HH:mm').format(time),
+                            style: TextStyle(
+                              fontSize: 100,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                              shadows: <Shadow>[
+                                Shadow(
+                                  offset: Offset(5.0, 5.0),
+                                  blurRadius: 10.0,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                        .value ??
+                    const SizedBox();
+              },
+            ),
+          ),
           // Positioned(
           //   left: 1920 / 2,
           //   top: 1080 / 2,
@@ -300,37 +300,37 @@ class Background extends HookConsumerWidget {
             height: MediaQuery.of(context).size.height,
             fit: BoxFit.fill,
           ),
-          // Positioned(
-          //   left: 650,
-          //   top: 420,
-          //   child: Asteroid(),
-          // ),
+          Positioned(
+            left: 650,
+            top: 420,
+            child: Asteroid(),
+          ),
           Image(
             image: AssetImage('assets/wallpaper-top.png'),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             fit: BoxFit.fill,
           ),
-          // Positioned(
-          //   left: 400,
-          //   top: 700,
-          //   child: Asteroid(),
-          // ),
-          // Positioned(
-          //   left: 600,
-          //   top: 620,
-          //   child: Asteroid(),
-          // ),
-          // Positioned(
-          //   left: 800,
-          //   top: 620,
-          //   child: Asteroid(),
-          // ),
-          // Positioned(
-          //   left: 800,
-          //   top: 620,
-          //   child: Asteroid(),
-          // ),
+          Positioned(
+            left: 400,
+            top: 700,
+            child: Asteroid(),
+          ),
+          Positioned(
+            left: 600,
+            top: 620,
+            child: Asteroid(),
+          ),
+          Positioned(
+            left: 800,
+            top: 620,
+            child: Asteroid(),
+          ),
+          Positioned(
+            left: 800,
+            top: 620,
+            child: Asteroid(),
+          ),
         ],
       ),
     );

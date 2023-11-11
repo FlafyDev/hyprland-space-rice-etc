@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_background/notifications_object.dart';
 import 'package:flutter_background/widgets/background/background.dart';
 import 'package:flutter_background/widgets/bar/bar.dart';
+import 'package:flutter_background/widgets/foreground/foreground.dart';
 import 'package:flutter_background/widgets/notification/notification.dart';
 import 'package:flutter_background/widgets/volume/volume.dart';
 import 'package:flutter_background/widgets/workspaces_indicator/workspaces_indicator.dart';
@@ -43,6 +44,7 @@ class MyApp extends HookConsumerWidget {
         brightness: Brightness.dark,
         // primaryColor: Colors.white,
         // primaryColorDark: Colors.white,
+        scaffoldBackgroundColor: Colors.transparent,
         primarySwatch: Colors.grey,
         sliderTheme: SliderThemeData(
           overlayShape: SliderComponentShape.noOverlay,
@@ -57,17 +59,17 @@ class MyApp extends HookConsumerWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            const Background(),
-            // NotificationsViewer(),
-            // Volume(),
-            // const Align(
-            //   alignment: Alignment.bottomCenter,
-            //   child: Bar(),
-            // ),
-            // const Align(
-            //   alignment: Alignment.bottomCenter,
-            //   child: WorkspacesIndicator(),
-            // ),
+            // const Background(),
+            const Align(
+              alignment: Alignment.bottomCenter,
+              child: Bar(),
+            ),
+            const Align(
+              alignment: Alignment.bottomCenter,
+              child: WorkspacesIndicator(),
+            ),
+            Foreground(),
+            NotificationsViewer(),
           ],
         ),
       ),
