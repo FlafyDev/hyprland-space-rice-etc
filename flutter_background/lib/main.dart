@@ -6,6 +6,7 @@ import 'package:flutter_background/notifications_object.dart';
 import 'package:flutter_background/widgets/background/background.dart';
 import 'package:flutter_background/widgets/bar/bar.dart';
 import 'package:flutter_background/widgets/notification/notification.dart';
+import 'package:flutter_background/widgets/volume/volume.dart';
 import 'package:flutter_background/widgets/workspaces_indicator/workspaces_indicator.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -58,6 +59,7 @@ class MyApp extends HookConsumerWidget {
           children: [
             const Background(),
             NotificationsViewer(),
+            Volume(),
             const Align(
               alignment: Alignment.bottomCenter,
               child: Bar(),

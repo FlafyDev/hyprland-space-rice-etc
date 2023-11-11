@@ -21,6 +21,7 @@ dependencies:
   file: ^7.0.0
   intl: ^0.18.1
   dbus: ^0.7.8
+  path_drawing: ^1.0.1
 
 dev_dependencies:
   custom_lint: ^0.5.6
