@@ -1,7 +1,10 @@
 // This file was generated using the following command and may be overwritten.
 // dart-dbus generate-remote-object lib/org.freedesktop.Notifications.xml
 
+import 'dart:async';
+
 import 'package:dbus/dbus.dart';
+import 'package:flutter_background/providers/notifications.dart';
 
 /// Signal data for org.freedesktop.Notifications.NotificationClosed.
 class OrgFreedesktopNotificationsNotificationClosed extends DBusSignal {
@@ -80,11 +83,17 @@ class OrgFreedesktopNotifications extends DBusRemoteObject {
 }
 
 class OrgFreedesktopNotificationsHandler extends DBusObject {
-  OrgFreedesktopNotificationsHandler() : super(DBusObjectPath('/org/freedesktop/Notifications'));
+  OrgFreedesktopNotificationsHandler({
+    required this.onNotification,
+    // required this.onNotificationClose,
+  }) : super(DBusObjectPath('/org/freedesktop/Notifications'));
+
+  final void Function(NotificationData) onNotification;
+  // final void Function(Notification) onNotificationClose;
 
   @override
   Future<DBusMethodResponse> getProperty(String interface, String name) async {
-    print('getProperty: $interface, $name');
+    // print('getProperty: $interface, $name');
     // if (interface == 'com.example.Test' && name == 'Version') {
     //   return DBusGetPropertyResponse(DBusString('1.2'));
     // } else {
@@ -94,7 +103,7 @@ class OrgFreedesktopNotificationsHandler extends DBusObject {
 
   @override
   Future<DBusMethodResponse> handleMethodCall(DBusMethodCall methodCall) async {
-    print('handleMethodCall: ${methodCall.interface}, ${methodCall.name}, ${methodCall.signature}');
+    // print('handleMethodCall: ${methodCall.interface}, ${methodCall.name}, ${methodCall.signature}');
     if (methodCall.interface != 'org.freedesktop.Notifications') {
       return DBusMethodErrorResponse.unknownInterface();
     }
@@ -108,7 +117,12 @@ class OrgFreedesktopNotificationsHandler extends DBusObject {
           DBusString('1.2'),
         ]);
       case 'Notify':
-        print('notification: ${methodCall.values}');
+        onNotification(
+          NotificationData(
+            title: methodCall.values[3].asString(),
+            description: methodCall.values[4].asString(),
+          ),
+        );
         return DBusMethodSuccessResponse([
           DBusUint32(1),
         ]);

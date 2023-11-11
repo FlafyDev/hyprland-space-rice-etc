@@ -77,7 +77,6 @@ static void toplevel_manager_handle_toplevel (void *data, struct zwlr_foreign_to
 		toplevel->handle = handle;
 		wl_list_insert(&state->toplevels, &toplevel->link);
 
-		fprintf(stderr, "TOP");
 	// struct Toplevel *toplevel = calloc(1, sizeof(struct Toplevel));
 	// if ( toplevel == NULL )
 	// {
@@ -106,93 +105,6 @@ static const struct zwlr_foreign_toplevel_manager_v1_listener toplevel_manager_l
 	.toplevel = toplevel_manager_handle_toplevel,
 	.finished = noop,
 };
-
-
-// static void xdg_output_handle_logical_position(void *data,
-// 		struct zxdg_output_v1 *xdg_output, int32_t x, int32_t y) {
-// 	struct grim_output *output = data;
-//
-// 	output->logical_geometry.x = x;
-// 	output->logical_geometry.y = y;
-// }
-//
-// static void xdg_output_handle_logical_size(void *data,
-// 		struct zxdg_output_v1 *xdg_output, int32_t width, int32_t height) {
-// 	struct grim_output *output = data;
-//
-// 	output->logical_geometry.width = width;
-// 	output->logical_geometry.height = height;
-// }
-//
-// static void xdg_output_handle_done(void *data,
-// 		struct zxdg_output_v1 *xdg_output) {
-// 	struct grim_output *output = data;
-//
-// 	// Guess the output scale from the logical size
-// 	int32_t width = output->geometry.width;
-// 	int32_t height = output->geometry.height;
-// 	apply_output_transform(output->transform, &width, &height);
-// 	output->logical_scale = (double)width / output->logical_geometry.width;
-// }
-//
-// static void xdg_output_handle_name(void *data,
-// 		struct zxdg_output_v1 *xdg_output, const char *name) {
-// 	struct grim_output *output = data;
-// 	output->name = strdup(name);
-// }
-//
-// static void xdg_output_handle_description(void *data,
-// 		struct zxdg_output_v1 *xdg_output, const char *name) {
-// 	// No-op
-// }
-//
-// static const struct zxdg_output_v1_listener xdg_output_listener = {
-// 	.logical_position = xdg_output_handle_logical_position,
-// 	.logical_size = xdg_output_handle_logical_size,
-// 	.done = xdg_output_handle_done,
-// 	.name = xdg_output_handle_name,
-// 	.description = xdg_output_handle_description,
-// };
-//
-//
-// static void output_handle_geometry(void *data, struct wl_output *wl_output,
-// 		int32_t x, int32_t y, int32_t physical_width, int32_t physical_height,
-// 		int32_t subpixel, const char *make, const char *model,
-// 		int32_t transform) {
-// 	struct grim_output *output = data;
-//
-// 	output->geometry.x = x;
-// 	output->geometry.y = y;
-// 	output->transform = transform;
-// }
-//
-// static void output_handle_mode(void *data, struct wl_output *wl_output,
-// 		uint32_t flags, int32_t width, int32_t height, int32_t refresh) {
-// 	struct grim_output *output = data;
-//
-// 	if ((flags & WL_OUTPUT_MODE_CURRENT) != 0) {
-// 		output->geometry.width = width;
-// 		output->geometry.height = height;
-// 	}
-// }
-//
-// static void output_handle_done(void *data, struct wl_output *wl_output) {
-// 	// No-op
-// }
-//
-// static void output_handle_scale(void *data, struct wl_output *wl_output,
-// 		int32_t factor) {
-// 	struct grim_output *output = data;
-// 	output->scale = factor;
-// }
-//
-// static const struct wl_output_listener output_listener = {
-// 	.geometry = output_handle_geometry,
-// 	.mode = output_handle_mode,
-// 	.done = output_handle_done,
-// 	.scale = output_handle_scale,
-// };
-
 
 static void handle_global(void *data, struct wl_registry *registry,
 		uint32_t name, const char *interface, uint32_t version) {
@@ -374,33 +286,6 @@ int main(int argc, char *argv[]) {
 			use_greatest_scale = false;
 			scale = strtod(optarg, NULL);
 			break;
-		// case 'g':;
-		// 	char *geometry_str = NULL;
-		// 	if (strcmp(optarg, "-") == 0) {
-		// 		size_t n = 0;
-		// 		ssize_t nread = getline(&geometry_str, &n, stdin);
-		// 		if (nread < 0) {
-		// 			free(geometry_str);
-		// 			fprintf(stderr, "failed to read a line from stdin\n");
-		// 			return EXIT_FAILURE;
-		// 		}
-		//
-		// 		if (nread > 0 && geometry_str[nread - 1] == '\n') {
-		// 			geometry_str[nread - 1] = '\0';
-		// 		}
-		// 	} else {
-		// 		geometry_str = strdup(optarg);
-		// 	}
-		//
-		// 	free(geometry);
-		// 	geometry = calloc(1, sizeof(struct grim_box));
-		// 	if (!parse_box(geometry, geometry_str)) {
-		// 		fprintf(stderr, "invalid geometry\n");
-		// 		return EXIT_FAILURE;
-		// 	}
-		//
-		// 	free(geometry_str);
-		// 	break;
 		case 't':
 			if (strcmp(optarg, "png") == 0) {
 				output_filetype = GRIM_FILETYPE_PNG;
@@ -454,10 +339,6 @@ int main(int argc, char *argv[]) {
 				}
 			}
 			break;
-		// case 'o':
-		// 	free(geometry_output);
-		// 	geometry_output = strdup(optarg);
-		// 	break;
 		case 'c':
 			with_cursor = true;
 			break;
@@ -511,30 +392,6 @@ int main(int argc, char *argv[]) {
 		fprintf(stderr, "compositor doesn't support wl_shm\n");
 		return EXIT_FAILURE;
 	}
-	// if (wl_list_empty(&state.outputs)) {
-	// 	fprintf(stderr, "no wl_output\n");
-	// 	return EXIT_FAILURE;
-	// }
-
-	// if (state.xdg_output_manager != NULL) {
-	// 	struct grim_output *output;
-	// 	wl_list_for_each(output, &state.outputs, link) {
-	// 		output->xdg_output = zxdg_output_manager_v1_get_xdg_output(
-	// 			state.xdg_output_manager, output->wl_output);
-	// 		zxdg_output_v1_add_listener(output->xdg_output,
-	// 			&xdg_output_listener, output);
-	// 	}
-	//
-	// 	wl_display_roundtrip(state.display);
-	// } else {
-	// 	fprintf(stderr, "warning: zxdg_output_manager_v1 isn't available, "
-	// 		"guessing the output layout\n");
-	//
-	// 	struct grim_output *output;
-	// 	wl_list_for_each(output, &state.outputs, link) {
-	// 		guess_output_logical_geometry(output);
-	// 	}
-	// }
 
 	if (state.foreign_toplevel_manager == NULL) {
 		fprintf(stderr, "compositor doesn't support zwlr_foreign_toplevel_manager_v1\n");
@@ -547,29 +404,11 @@ int main(int argc, char *argv[]) {
 	// wl_display_roundtrip(state.display);
 
 	while (wl_list_empty(&state.toplevels) && wl_display_dispatch(state.display) != -1);
-	fprintf(stderr, "DAMN");
 
 	if (state.toplevel_export_manager == NULL) {
 		fprintf(stderr, "compositor doesn't support hyprland-toplevel-export-v1\n");
 		return EXIT_FAILURE;
 	}
-
-	// if (geometry_output != NULL) {
-	// 	struct grim_output *output;
-	// 	wl_list_for_each(output, &state.outputs, link) {
-	// 		if (output->name != NULL &&
-	// 				strcmp(output->name, geometry_output) == 0) {
-	// 			geometry = calloc(1, sizeof(struct grim_box));
-	// 			memcpy(geometry, &output->logical_geometry,
-	// 				sizeof(struct grim_box));
-	// 		}
-	// 	}
-	//
-	// 	if (geometry == NULL) {
-	// 		fprintf(stderr, "unknown output '%s'\n", geometry_output);
-	// 		return EXIT_FAILURE;
-	// 	}
-	// }
 
 	size_t n_pending = 0;
 	struct grim_toplevel *toplevel;
@@ -642,9 +481,9 @@ int main(int argc, char *argv[]) {
 	}
 
 	free(output_filepath);
-	pixman_image_unref(image);
 	struct grim_toplevel *toplevel_tmp;
 	wl_list_for_each_safe(toplevel, toplevel_tmp, &state.toplevels, link) {
+    pixman_image_unref(toplevel->image);
 		wl_list_remove(&toplevel->link);
 		if (toplevel->toplevel_export_frame != NULL) {
 			hyprland_toplevel_export_frame_v1_destroy(toplevel->toplevel_export_frame);

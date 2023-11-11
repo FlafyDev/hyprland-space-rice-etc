@@ -300,37 +300,37 @@ class Background extends HookConsumerWidget {
             height: MediaQuery.of(context).size.height,
             fit: BoxFit.fill,
           ),
-          // Positioned(
-          //   left: 650,
-          //   top: 420,
-          //   child: Asteroid(),
-          // ),
+          Positioned(
+            left: 650,
+            top: 420,
+            child: Asteroid(),
+          ),
           Image(
             image: AssetImage('assets/wallpaper-top.png'),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             fit: BoxFit.fill,
           ),
-          // Positioned(
-          //   left: 400,
-          //   top: 700,
-          //   child: Asteroid(),
-          // ),
-          // Positioned(
-          //   left: 600,
-          //   top: 620,
-          //   child: Asteroid(),
-          // ),
-          // Positioned(
-          //   left: 800,
-          //   top: 620,
-          //   child: Asteroid(),
-          // ),
-          // Positioned(
-          //   left: 800,
-          //   top: 620,
-          //   child: Asteroid(),
-          // ),
+          Positioned(
+            left: 400,
+            top: 700,
+            child: Asteroid(),
+          ),
+          Positioned(
+            left: 600,
+            top: 620,
+            child: Asteroid(),
+          ),
+          Positioned(
+            left: 800,
+            top: 620,
+            child: Asteroid(),
+          ),
+          Positioned(
+            left: 800,
+            top: 620,
+            child: Asteroid(),
+          ),
         ],
       ),
     );
@@ -387,7 +387,7 @@ class CircularWaveformPainter extends CustomPainter {
         [
           Colors.blue.withOpacity(0),
           Colors.blue.withOpacity(0),
-          Colors.deepPurpleAccent.withOpacity(0.7),
+          Colors.blueAccent.withOpacity(0.7),
           Colors.blue.withOpacity(0.2),
           // Colors.purpleAccent.withOpacity(0.2),
           // Colors.blue.withOpacity(0),
@@ -432,7 +432,7 @@ class CircularWaveformPainter extends CustomPainter {
         size.width,
         [
           Colors.blue.withOpacity(0),
-          Colors.deepPurpleAccent.withOpacity(0.1),
+          Colors.blueAccent.withOpacity(0.1),
         ],
         [
           0.709,

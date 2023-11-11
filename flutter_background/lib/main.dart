@@ -5,25 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_background/notifications_object.dart';
 import 'package:flutter_background/widgets/background/background.dart';
 import 'package:flutter_background/widgets/bar/bar.dart';
+import 'package:flutter_background/widgets/notification/notification.dart';
 import 'package:flutter_background/widgets/workspaces_indicator/workspaces_indicator.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
-  final client = DBusClient.session();
-  // final object = OrgFreedesktopNotifications(
-  //   client,
-  //   'org.freedesktop.Notifications',
-  //   DBusObjectPath('/org/freedesktop/Notifications'),
-  // );
-  await client.requestName('org.freedesktop.Notifications');
-  await client.registerObject(OrgFreedesktopNotificationsHandler());
+  // final client = DBusClient.session();
+  // // final object = OrgFreedesktopNotifications(
+  // //   client,
+  // //   'org.freedesktop.Notifications',
+  // //   DBusObjectPath('/org/freedesktop/Notifications'),
+  // // );
+  // await client.requestName('org.freedesktop.Notifications');
+  // await client.registerObject(OrgFreedesktopNotificationsHandler());
 
   runApp(ProviderScope(child: HookBuilder(
     builder: (context) {
       useOnAppLifecycleStateChange((previous, current) {
         if (current == AppLifecycleState.detached) {
-          client.close();
+          // client.close();
         }
       });
       return const MyApp();
@@ -56,6 +57,7 @@ class MyApp extends HookConsumerWidget {
         body: Stack(
           children: [
             const Background(),
+            NotificationsViewer(),
             const Align(
               alignment: Alignment.bottomCenter,
               child: Bar(),

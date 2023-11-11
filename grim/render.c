@@ -179,6 +179,7 @@ void render(struct grim_state *state) {
         output_image,
         0, 0, 0, 0, 0, 0, buffer->width, buffer->height
     );
+    pixman_image_unref(toplevel_image);
 		toplevel->image = output_image;
 	}
 }
